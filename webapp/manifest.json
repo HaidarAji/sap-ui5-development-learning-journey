@@ -1,7 +1,7 @@
 {
     "_version": "1.28.0",
     "sap.app": {
-        "id": "<...>",
+        "id": "sap.training.exc",
         "type": "application",
         "i18n": "i18n/i18n.properties",
         "applicationVersion": {
@@ -59,10 +59,14 @@
             }
         },
         "contentDensities": {
-            "compact": false,
+            "compact": true,
             "cozy": true
         },
         "models": {
+            "": {
+                "type": "sap.ui.model.json.JSONModel",
+                "uri": "model/data.json"
+            },
             "i18n": {
                 "type": "sap.ui.model.resource.ResourceModel",
                 "settings": {
@@ -79,6 +83,7 @@
                 }
             }
         },
+        "handleValidation": true,
         "resources": {
             "css": [
                 {
@@ -99,7 +104,7 @@
             "targets": {}
         },
         "rootView": {
-            "viewName": "<...>",
+            "viewName": "sap.training.exc.view.App",
             "type": "XML",
             "async": true,
             "id": "App"
