@@ -154,7 +154,7 @@
                         id="city"
                         width="11rem"
                         sortProperty="City">
-                        <Label text="City"></Label>
+                        <Label text="City -"></Label>
                         <t:template>
                             <Text text="{City}" wrapping="false"></Text>
                         </t:template>
