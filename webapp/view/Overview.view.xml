@@ -1,113 +1,119 @@
 <mvc:View controllerName="sap.training.exc.controller.Overview"
+          xmlns="sap.ui.table"
           xmlns:mvc="sap.ui.core.mvc"  
           xmlns:f="sap.ui.layout.form"
           xmlns:core="sap.ui.core"
-          xmlns="sap.m"
-          xmlns:t="sap.ui.table"
+          xmlns:m="sap.m"
           core:require="{formatter: 'sap/training/exc/model/formatter'}">
-    <Page title="Flight Customers">
-        <content>
-            <Panel expandable="{= !${device>/system/desktop} }" expanded="{device>/system/desktop}"
+    <m:Page title="Flight Customers">
+        <m:content>
+            <m:Panel expandable="{= !${device>/system/desktop} }" expanded="{device>/system/desktop}"
             headerText="New Customer"
             class="sapUiResponsiveMargin sapUiHideOnPhone" width="auto">
-                <content>
+                <m:content>
                     <f:SimpleForm layout="ColumnLayout" editable="true">
                         <f:toolbar>
-                            <Toolbar>
-                                <content>
-                                    <ToolbarSpacer/>
-                                    <Button icon="sap-icon://create" text="Create Customer" press=".onSave"
+                            <m:Toolbar>
+                                <m:content>
+                                    <m:ToolbarSpacer/>
+                                    <m:Button icon="sap-icon://create" text="Create Customer" press=".onSave"
                                     enabled="{= ${customer>/CustomerName} !== undefined &amp;&amp; ${customer>/CustomerName}.length > 0 }"/>
-                                </content>
-                            </Toolbar>
+                                </m:content>
+                            </m:Toolbar>
                         </f:toolbar>
                         <f:content>
                             <core:Title text="General Data"/>
-                            <Label text="Form"/>
-                            <Input value="{customer>/Form}"/>
-                            <Label text="Customer Name"/>
-                            <Input value="{customer>/CustomerName}" valueLiveUpdate="true"/>
-                            <Label text="Discount"/>
-                            <Input value="{ path: 'customer>/Discount',
+                            <m:Label text="Form"/>
+                            <m:Input value="{customer>/Form}"/>
+                            <m:Label text="Customer Name"/>
+                            <m:Input value="{customer>/CustomerName}" valueLiveUpdate="true"/>
+                            <m:Label text="Discount"/>
+                            <m:Input value="{ path: 'customer>/Discount',
                                 type: 'sap.ui.model.type.Integer',
                                 constraints: {minimum: 0, maximum: 100} }"/>
                             <core:Title text="Address Data"/>
-                            <Label text="Street"/>
-                            <Input value="{customer>/Street}"/>
-                            <Label text="Post Code"/>
-                            <Input value="{customer>/PostCode}"/>
-                            <Label text="City"/>
-                            <Input value="{customer>/City}"/>
-                            <Label text="Country"/>
-                            <Input value="{customer>/Country}"/> 
+                            <m:Label text="Street"/>
+                            <m:Input value="{customer>/Street}"/>
+                            <m:Label text="Post Code"/>
+                            <m:Input value="{customer>/PostCode}"/>
+                            <m:Label text="City"/>
+                            <m:Input value="{customer>/City}"/>
+                            <m:Label text="Country"/>
+                            <m:Input value="{customer>/Country}"/> 
                             <core:Title text="Contact Data"/>
-                            <Label text="Email"/>    
-                            <Input value="{customer>/Email}"/>
-                            <Label text="Telephone"/>
-                            <Input value="{customer>/Telephone}"/>
+                            <m:Label text="Email"/>    
+                            <m:Input value="{customer>/Email}"/>
+                            <m:Label text="Telephone"/>
+                            <m:Input value="{customer>/Telephone}"/>
                         </f:content>
                     </f:SimpleForm>
-                </content>
-            </Panel>
-            
-            <Table id="customerTable" growing="true" growingThreshold="5"
-            mode="SingleSelectLeft" selectionChange=".onCustomerChange"
-            class="sapUiResponsiveMargin" width="auto" 
-            items="{
-                path: '/Customers',
-                sorter:[
-                    {path: 'City', group: true},
-                    {path: 'CustomerName'}
-                ]
-            }">
-                <headerToolbar>
-                    <Toolbar >
-                        <Title text="Customers"/>
-                        <ToolbarSpacer/>
-                        <SearchField width="40%" search=".onFilterCustomers"/>
-                    </Toolbar>
-                </headerToolbar>
+                </m:content>
+            </m:Panel>
+            <Table 
+                id="customerTable"
+                rows="{/Customers}"
+                sort="sortCustomers"
+                selectionMode="Single"
+                cellClick=".onCellClick"
+                >
                 <columns>
-                    <Column sortIndicator="Ascending"><header><Text text="Customer Name"/></header></Column>
-                    <Column minScreenWidth="Desktop"><header><Text text="Street"/></header></Column> 
-                    <Column minScreenWidth="Desktop"><header><Text text="Post Code"/></header></Column> 
-                    <Column><header><Text text="City"/></header></Column>
-                    <Column minScreenWidth="Tablet"><header><Text text="Country"/></header></Column> 
-                    <Column minScreenWidth="Tablet"
-                        demandPopin="true"><header><Text text="Email"/></header></Column> 
+                    <Column 
+                        id="name"
+                        width="11rem"
+                        sortProperty="CustomerName">
+                        <m:Label text="Customer Name"></m:Label>
+                        <template>
+                            <m:Text text="{CustomerName}" wrapping="false"></m:Text>
+                        </template>
+                    </Column>
+                    <Column 
+                        id="city"
+                        width="11rem"
+                        sortProperty="City">
+                        <m:Label text="City -"></m:Label>
+                        <template>
+                            <m:Text text="{City}" wrapping="false"></m:Text>
+                        </template>
+                    </Column>
+                    <Column 
+                        id="country"
+                        width="11rem"
+                        sortProperty="Country">
+                        <m:Label text="Country"></m:Label>
+                        <template>
+                            <m:Text text="{Country}" wrapping="false"></m:Text>
+                        </template>
+                    </Column>
+                    <Column 
+                        id="email"
+                        width="11rem"
+                        sortProperty="Email">
+                        <m:Label text="Email"></m:Label>
+                        <template>
+                            <m:Text text="{Email}" wrapping="false"></m:Text>
+                        </template>
+                    </Column>
                 </columns>
-                <items>
-                    <ColumnListItem>
-                        <cells>
-                            <ObjectIdentifier title="{CustomerName}"></ObjectIdentifier>
-                            <Text text="{Street}"></Text>
-                            <Text text="{PostCode}"></Text>
-                            <Text text="{City}"></Text>
-                            <Text text="{Country}"></Text>
-                            <Text text="{Email}"></Text>
-                        </cells>
-                    </ColumnListItem>
-                </items>
-            </Table>
-            <Table id="bookingTable" headerText="Bookings" items="{_Bookings}"
+            </Table> 
+            <m:Table id="bookingTable" headerText="Bookings" items="{_Bookings}"
             growing="true" growingThreshold="5" class="sapUiResponsiveMargin" width="auto">
-                <columns>
-                    <Column><header><Text text="Airline ID"></Text></header></Column>
-                    <Column><header><Text text="Connection Number"></Text></header></Column>
-                    <Column><header><Text text="Flight Date"></Text></header></Column>
-                    <Column minScreenWidth="Desktop"
-                        demandPopin="true"><header><Text text="Class"></Text></header></Column>
-                    <Column minScreenWidth="Tablet"
-                        demandPopin="true"><header><Text text="Foreign Currency Payment"></Text></header></Column>
-                    <Column minScreenWidth="Tablet"
-                        demandPopin="true"><header><Text text="Cancellation Status"></Text></header></Column>
-                </columns>
-                <items>
-                    <ColumnListItem>
-                        <cells>
-                            <ObjectIdentifier title="{AirlineID}"></ObjectIdentifier>
-                            <ObjectIdentifier title="{ConnectionNumber}"></ObjectIdentifier>
-                            <ObjectIdentifier title="{
+                <m:columns>
+                    <m:Column><m:header><m:Text text="Airline ID"></m:Text></m:header></m:Column>
+                    <m:Column><m:header><m:Text text="Connection Number"></m:Text></m:header></m:Column>
+                    <m:Column><m:header><m:Text text="Flight Date"></m:Text></m:header></m:Column>
+                    <m:Column minScreenWidth="Desktop"
+                        demandPopin="true"><m:header><m:Text text="Class"></m:Text></m:header></m:Column>
+                    <m:Column minScreenWidth="Tablet"
+                        demandPopin="true"><m:header><m:Text text="Foreign Currency Payment"></m:Text></m:header></m:Column>
+                    <m:Column minScreenWidth="Tablet"
+                        demandPopin="true"><m:header><m:Text text="Cancellation Status"></m:Text></m:header></m:Column>
+                </m:columns>
+                <m:items>
+                    <m:ColumnListItem>
+                        <m:cells>
+                            <m:ObjectIdentifier title="{AirlineID}"></m:ObjectIdentifier>
+                            <m:ObjectIdentifier title="{ConnectionNumber}"></m:ObjectIdentifier>
+                            <m:ObjectIdentifier title="{
                                 path: 'FlightDate',
                                 type: 'sap.ui.model.type.Date',
                                 formatOptions: {
@@ -115,11 +121,11 @@
                                     style: 'medium'
                                 }
                             }"/>
-                            <Text text="{
+                            <m:Text text="{
                                 path: 'Class',
                                 formatter: 'formatter.classText'
                             }"/>
-                            <ObjectNumber number="{
+                            <m:ObjectNumber number="{
                                 parts: [
                                     {path: 'ForeignCurrencyPayment'},
                                     {path: 'ForeignCurrency'}
@@ -128,60 +134,13 @@
                                 formatOptions: {showMeasure: false}
                             }"
                             unit="{ForeignCurrency}"/>
-                            <!-- <Text text="{IsCancelled}"></Text> -->
+                            <!-- <m:Text text="{IsCancelled}"></m:Text> -->
                             <core:Icon src="{= ${IsCancelled} === 'X' ? 'sap-icon://cancel' : 'sap-icon://accept' }"
                             tooltip="{= ${IsCancelled} === 'X' ? 'cancelled' : 'not cancelled' }"/>
-                        </cells>
-                    </ColumnListItem>
-                </items>
-            </Table>
-            <t:Table 
-                id="customerTable2"
-                rows="{/Customers}"
-                sort="sortCustomers"
-                >
-                <t:columns>
-                    <t:Column 
-                        id="name"
-                        width="11rem"
-                        sortProperty="CustomerName">
-                        <Label text="Customer Name"></Label>
-                        <t:template>
-                            <Text text="{CustomerName}" wrapping="false"></Text>
-                        </t:template>
-                    </t:Column>
-                    <t:Column 
-                        id="city"
-                        width="11rem"
-                        sortProperty="City">
-                        <Label text="City -"></Label>
-                        <t:template>
-                            <Text text="{City}" wrapping="false"></Text>
-                        </t:template>
-                    </t:Column>
-                    <t:Column 
-                        id="country"
-                        width="11rem"
-                        sortProperty="Country">
-                        <Label text="Country"></Label>
-                        <t:template>
-                            <Text text="{Country}" wrapping="false"></Text>
-                        </t:template>
-                    </t:Column>
-                    <t:Column 
-                        id="email"
-                        width="11rem"
-                        sortProperty="Email">
-                        <Label text="Email"></Label>
-                        <t:template>
-                            <Text text="{Email}" wrapping="false"></Text>
-                        </t:template>
-                    </t:Column>
-                </t:columns>
-            </t:Table> 
-        </content>
-    </Page>
-
-
-   
+                        </m:cells>
+                    </m:ColumnListItem>
+                </m:items>
+            </m:Table>
+        </m:content>
+    </m:Page>
 </mvc:View>

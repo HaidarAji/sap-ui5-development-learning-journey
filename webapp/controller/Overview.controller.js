@@ -56,6 +56,13 @@ sap.ui.define([
                 const oTable = this.byId("customerTable");
                 const oBinding = oTable.getBinding("items");
                 oBinding.filter(aFilter);
+            },
+
+            onCellClick: function (oControlEvent) {
+                console.log(oControlEvent);
+                const oModel = oControlEvent.getParameter("rowBindingContext");
+                console.log(oModel);
+                this.byId("bookingTable").setBindingContext(oModel);
             }
 
         });
