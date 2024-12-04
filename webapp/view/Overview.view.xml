@@ -63,14 +63,15 @@
                         sortProperty="CustomerName">
                         <m:Label text="Customer Name"></m:Label>
                         <template>
-                            <m:Text text="{CustomerName}" wrapping="false"></m:Text>
+                            <!-- <m:Text text="{CustomerName}" wrapping="false"></m:Text> -->
+                            <m:Input value="{CustomerName}" editable="true"/>
                         </template>
                     </Column>
                     <Column 
                         id="city"
                         width="11rem"
                         sortProperty="City">
-                        <m:Label text="City -"></m:Label>
+                        <m:Label text="City"></m:Label>
                         <template>
                             <m:Text text="{City}" wrapping="false"></m:Text>
                         </template>
