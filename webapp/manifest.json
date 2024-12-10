@@ -63,10 +63,6 @@
             "cozy": true
         },
         "models": {
-            "": {
-                "type": "sap.ui.model.json.JSONModel",
-                "uri": "model/data.json"
-            },
             "i18n": {
                 "type": "sap.ui.model.resource.ResourceModel",
                 "settings": {
@@ -75,8 +71,8 @@
                     "fallbackLocale": ""
                 }
             },
-            "ODataModel": {
-                "dataSource": "<...>",
+            "": {
+                "dataSource": "mainService",
                 "settings": {
                     "synchronizationMode": "None",
                     "operationMode": "Server",
