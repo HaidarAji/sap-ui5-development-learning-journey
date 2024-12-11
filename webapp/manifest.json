@@ -100,10 +100,24 @@
                 "async": true,
                 "viewPath": "sap.training.exc.view",
                 "controlAggregation": "pages",
-                "controlId": "<...>"
+                "controlId": "app"
             },
-            "routes": [],
-            "targets": {}
+            "routes": [
+                {
+                    "name": "overview",
+                    "pattern": "",
+                    "target": [
+                        "overview"
+                    ]
+                }
+            ],
+            "targets": {
+               "overview": {
+                    "viewName": "Overview",
+                    "viewId": "overview",
+                    "viewLevel": 1
+               }
+            }
         },
         "rootView": {
             "viewName": "sap.training.exc.view.App",
