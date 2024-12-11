@@ -41,9 +41,12 @@ sap.ui.define([
                     "Country": oModelData.Country,
                     "Email": oModelData.Email,
                     "Telephone": oModelData.Telephone
-                }).created().then(() => MessageToast.show(oResourceBundle.getText(
-                    "customerCreatedMessage"
-                )));
+                }).created().then(() => { 
+                    MessageToast.show(oResourceBundle.getText("customerCreatedMessage")) 
+                }).catch(error => {
+                    console.error("Error creating customer:", error);
+                    MessageToast.show(oResourceBundle.getText("customerCreationFailedMessage"));
+                });
 
             },
 
