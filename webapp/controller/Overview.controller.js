@@ -3,7 +3,8 @@ sap.ui.define([
     "sap/ui/core/syncStyleClass",
     "sap/ui/model/json/JSONModel",
     "sap/ui/model/Filter",
-    "sap/ui/model/FilterOperator"
+    "sap/ui/model/FilterOperator",
+    "sap/m/MessageToast"
 ],
     /**
      * 
@@ -14,10 +15,11 @@ sap.ui.define([
      * @param {typeof sap.ui.model.filterOperator} FilterOperator
      * @returns {typeof sap.ui.core.mvc.Controller.extend}
      */
-    function (Controller, syncStyleClass, JSONModel, Filter, FilterOperator) {
+    function (Controller, syncStyleClass, JSONModel, Filter, FilterOperator, MessageToast) {
         "use strict";
 
         const oModel = new JSONModel();
+        const discount = modelDiscount => modelDiscount === undefined ? 0 : modelDiscount;
 
         return Controller.extend("sap.training.exc.controller.Overview", {
 
@@ -26,15 +28,23 @@ sap.ui.define([
             },
 
             onSave: function() {
-                if (!this.pDialog) {
-                    this.pDialog = this.loadFragment({
-                        name: "sap.training.exc.view.Dialog"
-                    }).then(function (oDialog) {
-                        syncStyleClass(this.getOwnerComponent().getContentDensityClass(), this.getView(), oDialog);
-                        return oDialog;
-                      }.bind(this));
-                }
-                this.pDialog.then(oDialog => oDialog.open());
+                const oModelData = this.getView().getModel("customer").getData();
+                const oResourceBundle = this.getView().getModel("i18n").getResourceBundle();
+
+                this.byId("customerTable").getBinding("items").create({
+                    "Form": oModelData.Form,
+                    "CustomerName": oModelData.CustomerName,
+                    "Discount": `${discount(oModelData.Discount)}`,
+                    "Street": oModelData.Street,
+                    "PostCode": oModelData.PostCode,
+                    "City": oModelData.City,
+                    "Country": oModelData.Country,
+                    "Email": oModelData.Email,
+                    "Telephone": oModelData.Telephone
+                }).created().then(() => MessageToast.show(oResourceBundle.getText(
+                    "customerCreatedMessage"
+                )));
+
             },
 
             onCloseDialog: function() {
