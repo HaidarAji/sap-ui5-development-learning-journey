@@ -56,6 +56,11 @@ sap.ui.define([
                 const oTable = this.byId("customerTable");
                 const oBinding = oTable.getBinding("items");
                 oBinding.filter(aFilter);
+            },
+
+            onNavToDetails: function () {
+                const oRouter = this.getOwnerComponent().getRouter();
+                oRouter.navTo("detail");
             }
 
         });

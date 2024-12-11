@@ -78,7 +78,7 @@
                         demandPopin="true"><header><Text text="{i18n>emailLabelText}"/></header></Column> 
                 </columns>
                 <items>
-                    <ColumnListItem>
+                    <ColumnListItem type="Navigation" press=".onNavToDetails">
                         <cells>
                             <ObjectIdentifier title="{CustomerName}"></ObjectIdentifier>
                             <Text text="{Street}"></Text>
