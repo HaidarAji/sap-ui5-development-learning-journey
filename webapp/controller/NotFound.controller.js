@@ -9,6 +9,11 @@ sap.ui.define([
 
         return Controller.extend("sap.training.exc.controller.NotFound", {
 
+            onNavToOverview: function () {
+                const oRouter = this.getOwnerComponent().getRouter();
+                oRouter.navTo("overview", {}, true);
+            }
+
 
         });
     });

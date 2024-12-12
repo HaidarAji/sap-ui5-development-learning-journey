@@ -8,7 +8,7 @@
     <Page title="{i18n>overviewPageTitle}">
         <content>
             <Panel expandable="{= !${device>/system/desktop} }" expanded="{device>/system/desktop}"
-            headerText="{i18n>customerPaneHeader}"
+            headerText="{i18n>customerPanelHeader}"
             class="sapUiResponsiveMargin sapUiHideOnPhone" width="auto">
                 <content>
                     <f:SimpleForm layout="ColumnLayout" editable="true">
